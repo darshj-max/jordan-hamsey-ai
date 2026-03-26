@@ -1,0 +1,320 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Fonts ───────────────────────────────────────────────────── */
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/assets/fonts/PlayfairDisplay.woff2") format("woff2");
+  font-weight: 400 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Figtree";
+  src: url("/assets/fonts/Figtree.woff2") format("woff2");
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 1rem;
+    /* Michelin-star cozy luxury palette */
+    --background: 0.97 0.006 80; /* warm ivory parchment */
+    --foreground: 0.18 0.012 50; /* rich dark charcoal */
+    --card: 0.995 0.003 80; /* warm white card */
+    --card-foreground: 0.18 0.012 50;
+    --popover: 0.995 0.003 80;
+    --popover-foreground: 0.18 0.012 50;
+    --primary: 0.38 0.09 160; /* deep forest green */
+    --primary-foreground: 0.97 0.006 80;
+    --secondary: 0.94 0.008 80;
+    --secondary-foreground: 0.18 0.012 50;
+    --muted: 0.94 0.008 80;
+    --muted-foreground: 0.52 0.018 70;
+    --accent: 0.72 0.1 85; /* champagne gold */
+    --accent-foreground: 0.18 0.012 50;
+    --destructive: 0.55 0.18 25;
+    --destructive-foreground: 0.97 0 0;
+    --border: 0.9 0.008 80;
+    --input: 0.92 0.006 80;
+    --ring: 0.38 0.09 160;
+    --success: 0.55 0.14 145;
+    --chart-1: 0.38 0.09 160;
+    --chart-2: 0.72 0.1 85;
+    --chart-3: 0.55 0.14 145;
+    --chart-4: 0.6 0.12 200;
+    --chart-5: 0.55 0.18 25;
+    --sidebar: 0.995 0.003 80;
+    --sidebar-foreground: 0.18 0.012 50;
+    --sidebar-primary: 0.38 0.09 160;
+    --sidebar-primary-foreground: 0.97 0.006 80;
+    --sidebar-accent: 0.94 0.008 80;
+    --sidebar-accent-foreground: 0.18 0.012 50;
+    --sidebar-border: 0.9 0.008 80;
+    --sidebar-ring: 0.38 0.09 160;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Figtree", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    /* Subtle warm paper grain */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.018'/%3E%3C/svg%3E");
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Playfair Display", serif;
+  }
+}
+
+@layer utilities {
+  /* ── Light frosted surfaces ───────────────────────────── */
+  .glass {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+  }
+  .glass-dark {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+  }
+
+  /* ── Forest green glow ─────────────────────────────────────── */
+  .glow-gold {
+    box-shadow: 0 0 40px oklch(0.38 0.09 160 / 0.18), 0 0 80px
+      oklch(0.38 0.09 160 / 0.07);
+  }
+  .glow-gold-sm {
+    box-shadow: 0 0 20px oklch(0.38 0.09 160 / 0.16);
+  }
+  .glow-orange-sm {
+    @apply glow-gold-sm;
+  }
+  .glow-orange {
+    @apply glow-gold;
+  }
+
+  /* ── Card hover — warm magazine lift ───────────────────── */
+  .card-hover {
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s
+      ease, border-color 0.28s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px) scale(1.007);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.11), 0 4px 12px rgba(0, 0, 0, 0.06),
+      0 0 0 1px oklch(0.38 0.09 160 / 0.1);
+  }
+
+  /* ── Ingredient chip ────────────────────────────────── */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.3rem 0.8rem;
+    background: oklch(0.38 0.09 160 / 0.08);
+    border: 1px solid oklch(0.38 0.09 160 / 0.2);
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    font-family: "Figtree", sans-serif;
+    color: oklch(0.3 0.09 160);
+    letter-spacing: 0.01em;
+    transition: all 0.15s ease;
+  }
+  .chip:hover {
+    background: oklch(0.38 0.09 160 / 0.14);
+    border-color: oklch(0.38 0.09 160 / 0.3);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ── Forest green shimmer CTA ─────────────────────────────── */
+  .shimmer-hover {
+    background-size: 200% auto;
+    background-image: linear-gradient(
+      108deg,
+      oklch(0.38 0.09 160) 0%,
+      oklch(0.42 0.1 158) 38%,
+      oklch(0.38 0.09 160) 58%,
+      oklch(0.34 0.09 162) 100%
+    );
+    transition: background-position 0.65s ease, box-shadow 0.25s ease;
+  }
+  .shimmer-hover:hover {
+    background-position: right center;
+    box-shadow: 0 8px 28px oklch(0.38 0.09 160 / 0.38);
+  }
+
+  /* ── Section label ─────────────────────────────────── */
+  .label-caps {
+    font-family: "Figtree", sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: oklch(0.52 0.018 70);
+  }
+
+  /* ── Editorial display text ──────────────────────────── */
+  .display {
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+  }
+  .display-italic {
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    font-weight: 600;
+  }
+}
+
+/* ── Animations ─────────────────────────────────────────────── */
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes pulse-ring {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+@keyframes slide-in-up {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-right {
+  from {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes shimmer-slide {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+.animate-slide-in-up {
+  animation: slide-in-up 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.animate-slide-in-right {
+  animation: slide-in-right 0.4s ease-out;
+}
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+.animate-bounce-in {
+  animation: bounce-in 0.5s ease-out;
+}
+.animate-float {
+  animation: float 3.5s ease-in-out infinite;
+}
+
+/* ── Timer ring ─────────────────────────────────────────── */
+.timer-ring-bg {
+  stroke: rgba(0, 0, 0, 0.08);
+}
+.timer-ring-progress {
+  stroke: oklch(0.38 0.09 160);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease;
+  filter: drop-shadow(0 0 4px oklch(0.38 0.09 160 / 0.45));
+}
+
+/* ── Scrollbar — light ────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.11);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.38 0.09 160 / 0.38);
+}
+
+/* ── Focus ring — forest green ──────────────────────────── */
+*:focus-visible {
+  outline: 2px solid oklch(0.38 0.09 160 / 0.55);
+  outline-offset: 2px;
+}
